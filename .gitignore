@@ -1,0 +1,5 @@
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Private Data
+data/FFIS-CU200-2021-Q4.xlsx
