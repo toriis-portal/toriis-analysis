@@ -38,7 +38,7 @@ jobs:
       id: install-using-repo2docker
       uses: jupyterhub/repo2docker-action@master
       with:
-        IMAGE_NAME: "toriis-analysis"
+        IMAGE_NAME: "toriis"
 
     - name: Verify repo2docker environment
       run: |
@@ -46,8 +46,8 @@ jobs:
         echo "Listing all images"
         docker image list
 
-        echo "Checking to see if toriis-analysis exists"
-        docker image list | grep toriis-analysis | wc -l
+        echo "Checking to see if toriis exists"
+        docker image list | grep toriis | wc -l
         echo "Checking to see if repo2docker creation image exists"
         docker image list | grep repo2docker | wc -l
 
@@ -68,12 +68,12 @@ jobs:
     - name: Start the recently built docker container
       run: |
         echo "image SHA was ${{ steps.install-using-repo2docker.outputs.IMAGE_SHA_NAME }}"
-        docker run --name toriis-analysis_test -d -p 8888:8888  ${{ steps.install-using-repo2docker.outputs.IMAGE_SHA_NAME }} jupyter notebook --ip 0.0.0.0
+        docker run --name toriis_test -d -p 8888:8888  ${{ steps.install-using-repo2docker.outputs.IMAGE_SHA_NAME }} jupyter notebook --ip 0.0.0.0
 
     - name: Test the interactive timeline
       run: |
         echo "About to run notebooks"
-        docker exec toriis-analysis_test python bin/run_notebooks.py ${{ matrix.target }}
+        docker exec toriis_test python bin/run_notebooks.py ${{ matrix.target }}
         echo "After running the notebooks, checking container list"
         docker container list
 
@@ -85,12 +85,12 @@ jobs:
         echo "output filename = $OUT_FILENAME"
 
         echo "About to copy file from docker"
-        docker exec toriis-analysis_test ls
-        DOCKER_WD=`docker exec toriis-analysis_test pwd`
+        docker exec toriis_test ls
+        DOCKER_WD=`docker exec toriis_test pwd`
         echo "DOCKER_WD=$DOCKER_WD"
-        docker exec toriis-analysis_test ls $DOCKER_WD
-        docker exec toriis-analysis_test ls $DOCKER_WD/$OUT_FILENAME
-        docker cp toriis-analysis_test:$DOCKER_WD/$OUT_FILENAME /tmp
+        docker exec toriis_test ls $DOCKER_WD
+        docker exec toriis_test ls $DOCKER_WD/$OUT_FILENAME
+        docker cp toriis_test:$DOCKER_WD/$OUT_FILENAME /tmp
         ls -al /tmp/$OUT_FILENAME
         echo "::set-output name=OUT_FILENAME::${OUT_FILENAME}"
 
@@ -105,4 +105,4 @@ jobs:
       run: |
         echo "Running docker container list"
         docker container list
-        docker stop toriis-analysis
+        docker stop toriis
