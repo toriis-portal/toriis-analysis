@@ -1,3 +1,4 @@
+[![analysis-notebook-test-binder](https://github.com/kennykos/toriis-analysis/actions/workflows/analysis-notebook-test-binder.yml/badge.svg)](https://github.com/kennykos/toriis-analysis/actions/workflows/analysis-notebook-test-binder.yml)
 # toriis-analysis
 Repository for scripts to evaluate public institutional investment data. These scripts are designed to be launched with [binder](https://mybinder.org/) so that other community members can run their own analyses without any additional setup.
 
