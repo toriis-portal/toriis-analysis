@@ -90,7 +90,7 @@ jobs:
         echo "DOCKER_WD=$DOCKER_WD"
         docker exec toriis-analysis_test ls $DOCKER_WD
         docker exec toriis-analysis_test ls $DOCKER_WD/$OUT_FILENAME
-        docker cp mobilitynet_test:$DOCKER_WD/$OUT_FILENAME /tmp
+        docker cp toriis-analysis_test:$DOCKER_WD/$OUT_FILENAME /tmp
         ls -al /tmp/$OUT_FILENAME
         echo "::set-output name=OUT_FILENAME::${OUT_FILENAME}"
 
@@ -105,4 +105,4 @@ jobs:
       run: |
         echo "Running docker container list"
         docker container list
-        docker stop mobilitynet_test
+        docker stop toriis-analysis
