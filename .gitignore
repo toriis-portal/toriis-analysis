@@ -1,6 +1,9 @@
 # Jupyter Notebook
 .ipynb_checkpoints
 
+## Pycache
+scripts/__pycache__
+
 # Directory's to ignore
 .conda
 .idea

@@ -10,8 +10,10 @@ file and create an output CSV file called investment_fy<YEAR>
 from constants import COMPANY_NAMES 
 
 import pandas as pd
+import numpy as np
 import yfinance as yf
 import requests
+import concurrent.futures
 
 """
 Reading in Inputs from the Command Line
@@ -41,7 +43,7 @@ for i in range (10):
     except:
         pass
 
-if year != int(year_found): # FIXME: entering this condition even if the years march :(
+if int(year) != int(year_found):
     print(f"Input Year {year} does not Match Year Found in Input CSV {year_found}")
     print(f"Would you like to update the year to {year_found}? (y/n)")
     if input().upper() == 'Y':
@@ -57,7 +59,7 @@ starting_index = -1
 for i in range(10):
     try:
         if 'Account or Security' == df.iloc[i][0]:
-            starting_index = i + 1
+            starting_index = i + 2
             break
     except:
         pass
@@ -65,7 +67,7 @@ if starting_index < 0:
     print("Could Not Find Entry 'Account or Security', Terminating the Script")
     quit()
 
-df = df.loc[starting_index:]
+df = pd.read_excel(input_file_path, parse_dates=True, skiprows=starting_index).dropna(how='all')
 
 ## Setting up the Operating Pool Dataframe
 bank_i = df[df['Account or Security'].str.contains("9-200100", na=False)].index
