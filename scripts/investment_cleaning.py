@@ -9,10 +9,15 @@ file and create an output CSV file called investment_fy<YEAR>
 
 import pandas as pd
 
+"""
+Reading in Inputs from the Command Line
+"""
+
 print("Welcome to the Investment Cleaning Scripts. Please answer the following prompts so we may process your data.\n")
 print("Investment CSV File to be Cleaned (make sure the file is in the data directory)")
 input_file = input()
 input_file_path = "../data/" + input_file
+
 while 1:
     try:
         df = pd.read_excel(input_file_path, parse_dates=True).dropna(how='all')
@@ -22,12 +27,25 @@ while 1:
         print("Please enter a valid file path")
         input_file = input()
         input_file_path = "../data/" + input_file
+
 print("Fiscal Year of Annual Report (in YYYY format)")
 year = input()
-year_found = df.iloc[2][0].year
+for i in range (10):
+    try:
+        year_found = df.iloc[i][0].year
+        break
+    except:
+        pass
+
 if year != year_found:
     print(f"Input Year {year} does not Match Year Found in Input CSV {year_found}")
     print(f"Would you like to update the year to {year_found}? (y/n)")
     if input().upper() == 'Y':
         print(f"Updating Year to {year_found}")
         year = year_found
+
+output_file_path = f'../data/investments_fy{year}.csv'
+
+"""
+Processing Dataframe
+"""
