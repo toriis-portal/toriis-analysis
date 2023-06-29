@@ -1,9 +1,13 @@
 # Jupyter Notebook
 .ipynb_checkpoints
 
+## Pycache
+scripts/__pycache__
+
 # Directory's to ignore
 .conda
 .idea
+.vscode
 
 # Private Data
 data/FFIS-CU200-2021-Q4.xlsx
