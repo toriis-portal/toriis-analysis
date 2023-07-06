@@ -11,3 +11,7 @@ scripts/__pycache__
 
 # Private Data
 data/FFIS-CU200-2021-Q4.xlsx
+
+# Private Environment Files
+.env
+toriis_db_connect.ipynb
